@@ -1,0 +1,36 @@
+
+
+API workflow: 
+1. Start from the develop branch.  
+2. Check for new updates: git pull.  
+3. Switch to the testing branch: git checkout <branch-name>.  
+4. Check again for updates on the testing branch: git pull.  
+5. Enter the container: docker exec -it smart-api bash.  
+6. Inside the container, verify migration status: php artisan migrate:status.  
+7. If there are pending migrations, apply them: php artisan migrate.  
+8. Restart the queues (workers): php artisan queue:restart.  
+9. After finishing testing, roll back the migrations not in the develop branch, php 
+but in the branch you are testing (if the migrations were done): php artisan migrate:rollback.  
+10. Switch back to develop: git checkout develop.  
+11. If the PR mentions updating Elasticsearch, run: php artisan el:set:up. 
+ 
+Admin panel UI workflow: 
+1. Start from the develop branch.  
+2. Check for updates: git pull.  
+3. Switch to the testing branch: git checkout <branch-name>.  
+4. Check again for updates on the testing branch: git pull.  
+5. Enter the container: docker exec -it smart-admin-panel bash.  
+6. Inside the container, build the project for localhost:8881 using npm run prod. 
+If you need to run it on localhost:8884, use npm run watch instead.  
+7. When finished, switch back to develop: git checkout develop. 
+ 
+Expert landing page (Job board UI) workflow: 
+1. Start from the develop branch.  
+2. Check for updates: git pull.  
+3. Switch to the testing branch: git checkout <branch-name>.  
+4. Check again for updates on the testing branch: git pull. 
+5. Enter the container: docker exec -it smart-jobs bash.  
+6. Inside the container, build the project for localhost:8883 using: npm run build.  
+7. When finished, switch back to develop: git checkout develop. 
+
+
